@@ -34,32 +34,17 @@ addLayer("ach", {
             },
         },
     },
-    tabFormat: {
-    microtabs: {
-    stuff: {
-        first: {
-            content: [
-	    
-	    ],
-        },
-        second: {
-            content: [
-	    
-	    ],
-        }
-    },
-},
-
-    "Main tab": {
-        content: [
-	["microtab","stuff"],
-	],
-    },
-    "Other tab": {
+     tabFormat: {
+        "Main tab": {
         content: [
 	
 	],
-    
-    },
+        },
+        "Other tab": {
+        content: [
+	
+	],  
+        },
+    }
     
 })
