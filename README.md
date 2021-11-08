@@ -1,4 +1,6 @@
-# The-Modding-Tree
+# wow release version
+
+## The-Modding-Tree
 
 An incremental game engine based on The Prestige Tree. It still requires programming knowledge, but it's mostly pretty easy things and copy/pasting.
 
