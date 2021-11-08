@@ -23,8 +23,8 @@ addLayer("ach", {
     row: "side", // Row the layer is in on the tree (0 is the first row)
     layerShown(){return true},
     achievements: {
-        11: {
-            name: "The Begining",
+        12: {
+            name: "The After Begining",
             done() {
                 return hasUpgrade('r',11)
             },
@@ -34,7 +34,8 @@ addLayer("ach", {
             },
         },
     },
-    tablayout:[
+    tabformat:[
         "main-display",
+	"achivements"
     ],
 })
