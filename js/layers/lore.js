@@ -42,12 +42,16 @@ addLayer("lore", {
         },
         "Milestones for debug and stuff": {
             content: [
+		    ["infobox","debug"],
                 "milestones",
             ],
         },
 
     },
     infoboxes:{
+	    debug:{
+		title: "Debug Stuff",
+	    },
             P11: {
                 title: "The Begining",
                 body() { return "One day some one living on a ball of rock and water looked up at the sky in to the vastness of space and said to them selves<br>'There thats where I'll go'" },
