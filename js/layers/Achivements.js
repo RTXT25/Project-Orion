@@ -34,8 +34,32 @@ addLayer("ach", {
             },
         },
     },
-    tabformat:[
-        "main-display",
-	"achivements"
-    ],
+    tabFormat: {
+    microtabs: {
+    stuff: {
+        first: {
+            content: [
+	    
+	    ],
+        },
+        second: {
+            content: [
+	    
+	    ],
+        }
+    },
+},
+
+    "Main tab": {
+        content: [
+	["microtab","stuff"],
+	],
+    },
+    "Other tab": {
+        content: [
+	
+	],
+    
+    },
+    
 })
