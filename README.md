@@ -4,7 +4,7 @@
 
 https://rtxt25.github.io/Project-Orion/
 
-### fresh and probably buggy and broken build that may or may not work
+### fresh and probably buggy and broken build that may or may not work build
 
 https://raw.githack.com/RTXT25/Project-Orion/master/index.html
 
