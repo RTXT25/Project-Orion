@@ -124,7 +124,7 @@ addLayer("r", {
         title: "Ok QOL time",
         description: "Gain 100% of Resources Per Second",  
         cost: new Decimal(1e10),
-        unlocked() { return hasUpgrade('r',31)},
+        unlocked() { return hasUpgrade('r',32)},
        },
     },
 
