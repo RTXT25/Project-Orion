@@ -23,10 +23,20 @@ addLayer("ach", {
     row: "side", // Row the layer is in on the tree (0 is the first row)
     layerShown(){return true},
     achievements: {
+        11: {
+            name: "The Begining",
+            done() {
+                return hasUpgrade('r',11)
+            },
+            tooltip: "get one resoucre",
+            onComplete() {
+                player.ach.points = player.ach.points.add(1)
+            },
+        },
         12: {
             name: "The After Begining",
             done() {
-                return hasUpgrade('r',11)
+                return hasUpgrade('r',12)
             },
             tooltip: "Buy the first upgrade",
             onComplete() {
@@ -35,26 +45,28 @@ addLayer("ach", {
         },
     },
      tabFormat: {
+        
         "Main tab": {
         content: [
-	
-	],
+            "main-display",
+            "achievements",
+	    ],
         },
-        "Phase 1": {
+    "Phase 1": {
         content: [
 	
-	],
-        },
-	 "Phase 2": {
+	    ],
+    },
+	"Phase 2": {
         content: [
-	
-	],
+
+	    ],
 	},
-	 "Phase 3": {
+	"Phase 3": {
         content: [
-	
-	],
-	},
+            
+	    ],
+	    },
     },
     
 })

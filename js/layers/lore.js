@@ -55,20 +55,21 @@ addLayer("lore", {
             P11: {
                 title: "The Begining",
                 body() { return "One day some one living on a ball of rock and water looked up at the sky in to the vastness of space and said to them selves<br>'There thats where I'll go'" },
+                unlocked() { return hasUpgrade('r',11)},
             },
             P12: {
                 title: "",
-                body() { return "bar" },
+                body() { return "lore" },
             },
             P13: {
                 title: "",
-                body() { return "bar" },
+                body() { return "morelore" },
             },
     },
     milestones:{
         0:{
             requirementDescription: "New Lore Has Been Unlocked",
-            effectDescription: "",
+            effectDescription: "The Begining",
             done() { return (hasUpgrade('r',11)) }
         },
     },
