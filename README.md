@@ -1,5 +1,7 @@
 # Project Orion
 
+Project Orion is a space incremental game.
+
 ### latest stable build
 
 https://rtxt25.github.io/Project-Orion/
