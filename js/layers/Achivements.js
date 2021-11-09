@@ -40,11 +40,21 @@ addLayer("ach", {
 	
 	],
         },
-        "Other tab": {
+        "Phase 1": {
         content: [
 	
-	],  
+	],
         },
+	 "Phase 2": {
+        content: [
+	
+	],
+	},
+	 "Phase 3": {
+        content: [
+	
+	],
+	},
     },
     
 })
