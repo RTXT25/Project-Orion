@@ -14,13 +14,19 @@ let modInfo = {
 // Set your version in num and name
 let VERSION = {
 	num: "0.1",
-	name: "A GAMS",
+	name: "Wow more stuff",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.0</h3><br>
-		- Added things.<br>
-		- Added stuff.`
+        <h3>v0.1 Wow more stuff</h3><br>
+	        - Added Resource Upgrades<br>
+		- Added 2 Resource Buyables<br>
+		- Added 1 Achivement<br>
+		- Added 1 Lore thing<br>
+		note: I need to make the names better<br>
+	<h3>v0.0 1 second of gameplay</h3><br>
+		- Added Resources, Achivements and Lore layers<br>
+		- Set up the layers`
 
 let winText = `Congratulations! You have reached the end and beaten this game.`
 
@@ -60,7 +66,7 @@ function addedPlayerData() { return {
 
 // Display extra things at the top of the page
 var displayThings = [
-	"wow game very bad tho"
+	"wow game very bad tho <br>also you are playing the fresh and probably buggy and broken build that may or may not work build"
 ]
 
 // Determines when the game "ends"
