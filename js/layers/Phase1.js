@@ -26,6 +26,7 @@ addLayer("r", {
         if (hasUpgrade('r',23)) mult = mult.times(10)
         if (hasUpgrade('r',24)) mult = mult.times(10)
         if (hasUpgrade('r',25)) mult = mult.times(10)
+        if (hasUpgrade('r',34)) mult = mult.times(10)
         
 
 
@@ -126,6 +127,18 @@ addLayer("r", {
         cost: new Decimal(1e10),
         unlocked() { return hasUpgrade('r',32)},
        },
+       34:{
+        title: "10x bigger pickaxes",
+        description: "10x more resoucres",  
+        cost: new Decimal(1e11),
+        unlocked() { return hasUpgrade('r',33)},
+       },
+       41:{
+        title: "Constructor",
+        description: "Unlock Constructors",  
+        cost: new Decimal(1e11),
+        unlocked() { return hasUpgrade('r',34)},
+       },
     },
 
     buyables: {
@@ -156,4 +169,75 @@ addLayer("r", {
             unlocked() { return hasUpgrade('r',32)},
         },
     },
+})
+addLayer("c", {
+    name: "Constructor", // This is optional, only used in a few places, If absent it just uses the layer id.
+    symbol: "C", // This appears on the layer's node. Default is the id with the first letter capitalized
+    position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
+    startData() { return  {
+        unlocked: true,
+		points: new Decimal(0),
+        parts: new Decimal(0)
+    }},
+    color: "#702727",
+    requires: new Decimal(5e12), // Can be a function that takes requirement increases into account
+    resource: "Constructors", // Name of prestige currency
+    baseResource: "Cash", // Name of resource prestige is based on
+    baseAmount() {return player.r.points}, // Get the current amount of baseResource
+    type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    exponent: 10, // Prestige currency exponent
+    gainMult() { // Calculate the multiplier for main currency from bonuses
+        mult = new Decimal(1)
+        
+        return mult
+    },
+    gainExp() { // Calculate the exponent on main currency from bonuses
+        return new Decimal(1)
+    },
+    row: 1, // Row the layer is in on the tree (0 is the first row)
+    hotkeys: [
+        {key: "c", description: "c: Reset for Constuctors", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+    ],
+    layerShown(){return true},
+
+    upgrades: {
+       11:{
+        title: "Part Maker",
+        description: "Start making parts", 
+        cost: new Decimal(1),
+        unlocked() { return hasMilestone('c',0)},
+        
+       },
+    },
+    milestones: {
+        0: {
+            requirementDescription: "1 Constructor",
+            effectDescription: "Start Making Ship Parts",
+            done() { return player.c.points.gte(1) },
+        },
+        1: {
+            requirementDescription: "2 Constructor",
+            effectDescription: "Keep all Resource Upgrades",
+            done() { return player.c.points.gte(2) },
+        },
+        2: {
+            requirementDescription: "3 Constructor",
+            effectDescription: "blah",
+            done() { return player.c.points.gte(3) },
+        },
+    },
+    update(diff) {
+        pgain = new Decimal(1)
+        if(hasUpgrade('c',11)) player[this.layer].parts = player[this.layer].parts.add(pgain)
+      },
+      tabFormat: [
+        "main-display",
+        "prestige-button",
+        "blank",
+        ["display-text",
+            function() { return 'You have ' + format(player[this.layer].parts) + ' Parts' },
+            ],
+        "upgrades"
+    ],
+    branches: ['r']
 })
