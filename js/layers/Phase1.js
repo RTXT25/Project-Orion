@@ -198,7 +198,7 @@ addLayer("c", {
     hotkeys: [
         {key: "c", description: "c: Reset for Constuctors", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return hasUpgrade('r',41)},
+    layerShown(){return true},
 
     upgrades: {
        11:{
