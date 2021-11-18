@@ -10,6 +10,10 @@ https://rtxt25.github.io/Project-Orion/
 
 https://raw.githack.com/RTXT25/Project-Orion/master/index.html
 
+### Exterminate's experiments
+
+https://raw.githack.com/RTXT25/Project-Orion/exterminate/index.html
+
 ## stuff about The-Modding-Tree
 
 An incremental game engine based on The Prestige Tree. It still requires programming knowledge, but it's mostly pretty easy things and copy/pasting.
