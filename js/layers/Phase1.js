@@ -6,6 +6,10 @@ addLayer("r", {
         unlocked: true,
 		points: new Decimal(0),
     }},
+    doReset(resettingLayer) {
+        let keep = [];
+        if (hasMilestone('c',0)) keep.push("upgrades")
+    },
     color: "#a8a8a8",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
     resource: "Resources", // Name of prestige currency
@@ -179,13 +183,20 @@ addLayer("c", {
 		points: new Decimal(0),
         parts: new Decimal(0)
     }},
+    doReset(resettingLayer) {
+        let keep = [];
+        if (hasMilestone('c',0)) keep.push("upgrades")
+        keep.push("points")
+        layerDataReset(this.layer, keep);   
+    },
+    autoPrestige() {return (hasMilestone('c',2))},
     color: "#702727",
     requires: new Decimal(5e12), // Can be a function that takes requirement increases into account
     resource: "Constructors", // Name of prestige currency
-    baseResource: "Cash", // Name of resource prestige is based on
+    baseResource: "Resources", // Name of resource prestige is based on
     baseAmount() {return player.r.points}, // Get the current amount of baseResource
     type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 10, // Prestige currency exponent
+    exponent: 2, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
         
@@ -198,7 +209,7 @@ addLayer("c", {
     hotkeys: [
         {key: "c", description: "c: Reset for Constuctors", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return true},
+    layerShown(){return hasUpgrade('r',41) || player.c.unlocked},
 
     upgrades: {
        11:{
@@ -222,12 +233,12 @@ addLayer("c", {
         },
         2: {
             requirementDescription: "3 Constructor",
-            effectDescription: "blah",
+            effectDescription: "Auto Reset Constructors",
             done() { return player.c.points.gte(3) },
         },
     },
     update(diff) {
-        pgain = new Decimal(1)
+        pgain = new Decimal(player.c.points)
         if(hasUpgrade('c',11)) player[this.layer].parts = player[this.layer].parts.add(pgain)
       },
       tabFormat: [
@@ -237,7 +248,60 @@ addLayer("c", {
         ["display-text",
             function() { return 'You have ' + format(player[this.layer].parts) + ' Parts' },
             ],
-        "upgrades"
+        "upgrades",
+        "milestones",
     ],
     branches: ['r']
+})
+addLayer("s", {
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+    }},
+    symbol: "S",
+    color: "#89a39b",                       // The color for this layer, which affects many elements.
+    resource: "Ships",            // The name of this layer's main prestige resource.
+    row: 8,                                 // The row this layer is on (0 is the first row).
+    position: 0,
+    tooltip: "Body",
+    resetDescription:"Install ",
+    baseResource: "Parts",                 // The name of the resource your prestige gain is based on.
+    baseAmount() { return player.c.parts },  // A function to return the current amount of baseResource.
+    canBuyMax() { return true},
+    requires: new Decimal(10),              // The amount of the base needed to  gain 1 of the prestige currency.
+                                            // Also the amount required to unlock the layer.
+    doReset(resettingLayer) {
+        let keep = [];
+        keep.push("points");
+        layerDataReset(this.layer, keep);
+    },
+    type: "static",                         // Determines the formula used for calculating prestige currency.
+    exponent: 0.41,                          // "normal" prestige gain is (currency^exponent).
+
+    gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        return new Decimal(1)               // Factor in any bonuses multiplying gain here.
+    },
+    gainExp() {                             // Returns the exponent to your gain of the prestige resource.
+        return new Decimal(1)
+    },
+
+    layerShown() { return hasUpgrade('r',41) || player.c.unlocked },          // Returns a bool for if this layer's node should be visible in the tree.
+
+    milestones: {
+        0: {
+            requirementDescription: "Spaceship Completed",
+            effectDescription: "Complete The Space Ship",
+            done() { return hasMilestone('sb',0) && hasMilestone('st1',0) && hasMilestone('st2',0) && hasMilestone('sw1',0) && hasMilestone('sw2',0) && hasMilestone('sc',0)},
+        },
+    }, 
+    tabFormat: [
+        "main-display",
+        "blank",
+        ["display-text",
+            function() { return 'You have ' + format(player.sb.points) + ' Completed Parts' },
+            ],
+        "buyables",
+        "blank",
+        "milestones",
+    ],
 })

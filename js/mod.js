@@ -3,7 +3,7 @@ let modInfo = {
 	id: "PrOr",
 	author: "RTXT25",
 	pointsName: "Cash",
-	modFiles: ["layers/Phase1.js", "layers/Phase2.js", "layers/Phase3.js", "layers/Achivements.js", "layers/lore.js", "tree.js"],
+	modFiles: ["layers/Phase1.js", "layers/p1ship.js", "layers/Phase2.js", "layers/Phase3.js", "layers/Achivements.js", "layers/lore.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",
@@ -22,13 +22,13 @@ let changelog = `<h1>Changelog:</h1><br>
 	        - small sequence fix
         <h3>v0.1 Wow more stuff</h3><br>
 	        - Added Resource Upgrades<br>
-		- Added 2 Resource Buyables<br>
-		- Added 1 Achivement<br>
-		- Added 1 Lore thing<br>
-		note: I need to make the names better<br>
-	<h3>v0.0 1 second of gameplay</h3><br>
-		- Added Resources, Achivements and Lore layers<br>
-		- Set up the layers`
+			- Added 2 Resource Buyables<br>
+			- Added 1 Achivement<br>
+			- Added 1 Lore thing<br>
+			note: I need to make the names better<br>
+		<h3>v0.0 1 second of gameplay</h3><br>
+			- Added Resources, Achivements and Lore layers<br>
+			- Set up the layers`
 
 let winText = `Congratulations! You have reached the end and beaten this game.`
 
@@ -58,6 +58,8 @@ function getPointGen() {
 	if (hasUpgrade('r', 14)) gain = gain.times(upgradeEffect('r', 14))
 
 	if (hasUpgrade('r',31)) gain = gain.times(1.1)
+
+	gain = gain.times(player.c.points).add(1)
 
 	return gain
 }
