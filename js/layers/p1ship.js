@@ -30,7 +30,7 @@ addLayer("sb", {
         return new Decimal(1)
     },
 
-    layerShown() { return (hasUpgrade('r',41) || player.c.unlocked) },          // Returns a bool for if this layer's node should be visible in the tree.
+    layerShown() { return (hasUpgrade('r',41) || player.c.unlocked ) &&! player.s.points.gte(1) },          // Returns a bool for if this layer's node should be visible in the tree.
 
     milestones: {
         0: {
@@ -81,7 +81,7 @@ addLayer("st1", {
         return new Decimal(1)
     },
 
-    layerShown() { return hasUpgrade('r',41) || player.c.unlocked },          // Returns a bool for if this layer's node should be visible in the tree.
+    layerShown() { return (hasUpgrade('r',41) || player.c.unlocked ) &&! player.s.points.gte(1) },          // Returns a bool for if this layer's node should be visible in the tree.
 
     milestones: {
         0: {
@@ -133,7 +133,7 @@ addLayer("st2", {
         keep.push("points");
         layerDataReset(this.layer, keep);
     },
-    layerShown() { return hasUpgrade('r',41) || player.c.unlocked },          // Returns a bool for if this layer's node should be visible in the tree.
+    layerShown() { return (hasUpgrade('r',41) || player.c.unlocked ) &&! player.s.points.gte(1) },          // Returns a bool for if this layer's node should be visible in the tree.
     
     milestones: {
         0: {
@@ -187,7 +187,7 @@ addLayer("sw1", {
         keep.push("points");
         layerDataReset(this.layer, keep);
     },
-    layerShown() { return hasUpgrade('r',41) || player.c.unlocked },          // Returns a bool for if this layer's node should be visible in the tree.
+    layerShown() { return (hasUpgrade('r',41) || player.c.unlocked ) &&! player.s.points.gte(1)  },          // Returns a bool for if this layer's node should be visible in the tree.
 
     milestones: {
         0: {
@@ -237,7 +237,7 @@ addLayer("sw2", {
         return new Decimal(1)
     },
 
-    layerShown() { return hasUpgrade('r',41) || player.c.unlocked},          // Returns a bool for if this layer's node should be visible in the tree.
+    layerShown() { return (hasUpgrade('r',41) || player.c.unlocked ) &&! player.s.points.gte(1) },          // Returns a bool for if this layer's node should be visible in the tree.
     doReset(resettingLayer) {
         let keep = [];
         keep.push("points");
@@ -294,7 +294,7 @@ addLayer("sc", {
         keep.push("points");
         layerDataReset(this.layer, keep);
     },
-    layerShown() { return hasUpgrade('r',41) || player.c.unlocked },          // Returns a bool for if this layer's node should be visible in the tree.
+    layerShown() { return (hasUpgrade('r',41) || player.c.unlocked ) &&! player.s.points.gte(1) },          // Returns a bool for if this layer's node should be visible in the tree.
 
     milestones: {
         0: {

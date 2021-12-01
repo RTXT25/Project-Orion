@@ -261,9 +261,8 @@ addLayer("s", {
     symbol: "S",
     color: "#89a39b",                       // The color for this layer, which affects many elements.
     resource: "Ships",            // The name of this layer's main prestige resource.
-    row: 8,                                 // The row this layer is on (0 is the first row).
+    row: 2,                                 // The row this layer is on (0 is the first row).
     position: 0,
-    tooltip: "Body",
     resetDescription:"Install ",
     baseResource: "Parts",                 // The name of the resource your prestige gain is based on.
     baseAmount() { return player.c.parts },  // A function to return the current amount of baseResource.
@@ -286,7 +285,6 @@ addLayer("s", {
     },
 
     layerShown() { return hasUpgrade('r',41) || player.c.unlocked },          // Returns a bool for if this layer's node should be visible in the tree.
-
     milestones: {
         0: {
             requirementDescription: "Spaceship Completed",
@@ -294,6 +292,23 @@ addLayer("s", {
             done() { return hasMilestone('sb',0) && hasMilestone('st1',0) && hasMilestone('st2',0) && hasMilestone('sw1',0) && hasMilestone('sw2',0) && hasMilestone('sc',0)},
         },
     }, 
+    buyables: {
+        11: {
+            title: "Space Ships",
+            cost(x) { return new Decimal(100).pow(x.pow(1.2)) },
+            display() {
+                return "Amount: "+formatWhole(getBuyableAmount('s', 11)+1)+"<br> cost:"+format(tmp.s.buyables[11].cost)+ " Resources"
+            },
+            canAfford() { return player.c.parts.gte(this.cost()) },
+            buy() {
+                player.c.parts = player.c.parts.sub(this.cost())
+                setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1))
+            },
+        },
+    },
+    clickables: {
+
+    },
     tabFormat: [
         "main-display",
         "blank",
@@ -303,5 +318,74 @@ addLayer("s", {
         "buyables",
         "blank",
         "milestones",
+        "clickables",
     ],
+    branches: ['r']
+})
+addLayer("o1", {
+    startData() { return {                  // startData is a function that returns default data for a layer. 
+        unlocked: true,                     // You can add more variables here to add them to your layer.
+        points: new Decimal(0),             // "points" is the internal name for the main resource of the layer.
+    }},
+    symbol: "O",
+    color: "#6d00b0",                       // The color for this layer, which affects many elements.
+    resource: "",            // The name of this layer's main prestige resource.
+    row: 3,                                 // The row this layer is on (0 is the first row).
+    position: 0,
+    resetDescription:" ",
+    baseResource: "Parts",                 // The name of the resource your prestige gain is based on.
+    baseAmount() { return player.c.parts },  // A function to return the current amount of baseResource.
+    canBuyMax() { return true},
+    requires: new Decimal(10),              // The amount of the base needed to  gain 1 of the prestige currency.
+                                            // Also the amount required to unlock the layer.
+    doReset(resettingLayer) {
+        let keep = [];
+        keep.push("points");
+        layerDataReset(this.layer, keep);
+    },
+    type: "static",                         // Determines the formula used for calculating prestige currency.
+    exponent: 0.41,                          // "normal" prestige gain is (currency^exponent).
+
+    gainMult() {                            // Returns your multiplier to your gain of the prestige resource.
+        return new Decimal(1)               // Factor in any bonuses multiplying gain here.
+    },
+    gainExp() {                             // Returns the exponent to your gain of the prestige resource.
+        return new Decimal(1)
+    },
+
+    layerShown() { return hasUpgrade('r',41) || player.c.unlocked },          // Returns a bool for if this layer's node should be visible in the tree.
+    upgrades: {
+        11: {
+            description: "",
+            cost: new Decimal(100),
+        },
+    },
+    challenges: {
+        11: {
+            name: "Ouch",
+            challengeDescription: "description of ouchie",
+            canComplete: function() {return player.o1.points.gte(0)},
+        },
+    },
+    update(diff) {
+        pgain = new Decimal(player.c.points)
+        if(hasUpgrade('c',11)) player[this.layer].parts = player[this.layer].parts.add(pgain)
+      },
+    tabFormat: {
+        "Resarch": {
+            content: [
+                "main-display",
+                "blank",
+                "upgrades",
+            ],
+        },
+        "Space Station Sections": {
+            content: [
+                "main-display",
+                "blank",
+                "challenges",
+            ],
+        },
+    },    
+    branches: ['r']
 })
