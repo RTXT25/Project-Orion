@@ -264,7 +264,7 @@ addLayer("s", {
     row: 2,                                 // The row this layer is on (0 is the first row).
     position: 0,
     resetDescription:"Install ",
-    baseResource: "Parts",                 // The name of the resource your prestige gain is based on.
+    baseResource: " Parts",                 // The name of the resource your prestige gain is based on.
     baseAmount() { return player.c.parts },  // A function to return the current amount of baseResource.
     canBuyMax() { return true},
     requires: new Decimal(10),              // The amount of the base needed to  gain 1 of the prestige currency.
@@ -297,7 +297,7 @@ addLayer("s", {
             title: "Space Ships",
             cost(x) { return new Decimal(100).pow(x.pow(1.2)) },
             display() {
-                return "Amount: "+formatWhole(getBuyableAmount('s', 11)+1)+"<br> cost:"+format(tmp.s.buyables[11].cost)+ " Resources"
+                return "Amount: "+formatWhole(getBuyableAmount('s', 11)+1)+"<br> cost:"+format(tmp.s.buyables[11].cost)+ " Parts"
             },
             canAfford() { return player.c.parts.gte(this.cost()) },
             buy() {
@@ -356,20 +356,95 @@ addLayer("o1", {
     layerShown() { return hasUpgrade('r',41) || player.c.unlocked },          // Returns a bool for if this layer's node should be visible in the tree.
     upgrades: {
         11: {
-            description: "",
-            cost: new Decimal(100),
+            description: "Start Construction",
+            cost: new Decimal(0),
+        },
+        12: {
+            description: "Bigger Cargo Holds",
+            cost: new Decimal(500),
+        },
+        13: {
+            description: "Better Fuel Injection",
+            cost: new Decimal(2000),
+        },
+        14: {
+            description: "Ship Slingshots",
+            cost: new Decimal(5000),
+        },
+        15: {
+            description: "Repair droids",
+            cost: new Decimal(6000),
+        },
+        21: {
+            description: "Construction Crew",
+            cost: new Decimal(10000),
+        },
+        22: {
+            description: "Screwyer screws",
+            cost: new Decimal(12000),
+        },
+        23: {
+            description: "Imposter Detection Device",
+            cost: new Decimal(16000),
+        },
+        24: {
+            description: "Imposter Removal Device",
+            cost: new Decimal(20000),
+        },
+        25: {
+            description: "Sus Detector",
+            cost: new Decimal(22000),
+        },
+        31: {
+            description: "Better Ship Construction",
+            cost: new Decimal(26000),
+        },
+        32: {
+            description: "Bigger Cargo Holds",
+            cost: new Decimal(500),
+        },
+        33: {
+            description: "Bigger Cargo Holds",
+            cost: new Decimal(500),
+        },
+        34: {
+            description: "Bigger Cargo Holds",
+            cost: new Decimal(500),
+        },
+        35: {
+            description: "Bigger Cargo Holds",
+            cost: new Decimal(500),
         },
     },
     challenges: {
         11: {
-            name: "Ouch",
-            challengeDescription: "description of ouchie",
+            name: "Makey Msakey",
+            challengeDescription: "Make the Station",
             canComplete: function() {return player.o1.points.gte(0)},
+            onEnter(){set(player.o1.points(0))},
         },
     },
     update(diff) {
-        pgain = new Decimal(player.c.points)
-        if(hasUpgrade('c',11)) player[this.layer].parts = player[this.layer].parts.add(pgain)
+        pgain = new Decimal(1)
+
+        pgain = pgain.add(getBuyableAmount('s', 11))
+
+        if (hasUpgrade('o1',12)) pgain = pgain.times(2)
+        if (hasUpgrade('o1',13)) pgain = pgain.times(2)
+        if (hasUpgrade('o1',14)) pgain = pgain.times(2)
+        if (hasUpgrade('o1',15)) pgain = pgain.times(2)
+        if (hasUpgrade('o1',21)) pgain = pgain.times(2)
+        if (hasUpgrade('o1',22)) pgain = pgain.times(2)
+        if (hasUpgrade('o1',23)) pgain = pgain.times(2)
+        if (hasUpgrade('o1',24)) pgain = pgain.times(2)
+        if (hasUpgrade('o1',25)) pgain = pgain.times(2)
+        if (hasUpgrade('o1',31)) pgain = pgain.times(2)
+        if (hasUpgrade('o1',32)) pgain = pgain.times(2)
+        if (hasUpgrade('o1',33)) pgain = pgain.times(2)
+        if (hasUpgrade('o1',34)) pgain = pgain.times(2)
+        if (hasUpgrade('o1',35)) pgain = pgain.times(2)
+
+        if(hasUpgrade('o1',11)) player[this.layer].points = player[this.layer].points.add(pgain)
       },
     tabFormat: {
         "Resarch": {
